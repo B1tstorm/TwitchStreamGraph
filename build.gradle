@@ -1,0 +1,37 @@
+plugins {
+    id "com.diffplug.gradle.spotless" version "3.23.0"
+    id "pmd"
+    id "eclipse"
+}
+apply plugin: 'java'
+apply plugin: 'com.diffplug.gradle.spotless'
+
+dependencies {
+    implementation 'org.processing:core:3.3.6'
+    testImplementation(
+            'org.assertj:assertj-core:3.+',
+            'org.junit.jupiter:junit-jupiter-api:5.4.2'
+    )
+    testRuntime(
+            'org.junit.jupiter:junit-jupiter-engine:5.4.2'
+    )
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+pmd {
+    consoleOutput = true
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
+}
